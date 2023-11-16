@@ -39,10 +39,8 @@ services:
     image: tmcgroul/firehose-grpc:10
     ports:
       - '13042:13042'
-    command: [
-      "--archive", "${ARCHIVE_URL}",
-      "--rpc", "${RPC_URL}",
-      "--finality-confirmation", "${FINALITY_CONFIRMATION}"
+    command: [ "--archive", "{{{archiveUrl}}}",{{{rpcFlag}}}
+      "--finality-confirmation", "{{{finalityConfirmation}}}"
     ]
     environment:
       RUST_LOG: "firehose_grpc=info"

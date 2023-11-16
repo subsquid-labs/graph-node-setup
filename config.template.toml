@@ -1,0 +1,16 @@
+[store]
+[store.primary]
+connection = "postgres://graph-node:let-me-in@postgres:5432/graph-node"
+pool_size = 5
+[chains]
+ingestor = "block_ingestor_node"
+[chains.{{{network}}}]
+shard = "primary"
+provider = [
+    { label = "{{{network}}}", details = { type = "firehose", url = "http://firehose:13042", features = ["filters"] } },
+    { label = "{{{network}}}-rpc", url = "{{{rpcUrl}}}", features = ["archive"] }
+]
+[deployment]
+[[deployment.rule]]
+shard = "primary"
+indexers = ["default"]

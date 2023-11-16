@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "name": "graph-node-setup",
+  "version": "0.0.0",
+  "description": "A Graph node setup that uses Subsquid data sources",
+  "scripts": {
+    "configure": "node scripts/configure.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subsquid-labs/graph-node-setup.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/subsquid-labs/graph-node-setup/issues"
+  },
+  "homepage": "https://github.com/subsquid-labs/graph-node-setup#readme",
+  "dependencies": {
+    "@inquirer/input": "^1.2.14",
+    "@inquirer/select": "^1.3.1",
+    "@subsquid/archive-registry": "^3.3.0",
+    "commander": "^11.1.0",
+    "mustache": "^4.2.0"
+  }
+}

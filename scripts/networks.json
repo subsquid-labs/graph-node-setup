@@ -1,0 +1,156 @@
+[
+  {
+    "subsquidName": "arbitrum",
+    "graphCliName": "arbitrum-one",
+    "defaultFinalityConfirmations": 300
+  },
+  {
+    "subsquidName": "arbitrum-goerli",
+    "graphCliName": "arbitrum-goerli",
+    "defaultFinalityConfirmations": 300
+  },
+  {
+    "subsquidName": "arbitrum-nova",
+    "defaultFinalityConfirmations": 300
+  },
+  {
+    "subsquidName": "astar",
+    "defaultFinalityConfirmations": 10
+  },
+  {
+    "subsquidName": "astar-zkatana",
+    "defaultFinalityConfirmations": 75
+  },
+  {
+    "subsquidName": "avalanche",
+    "graphCliName": "avalanche",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "avalanche-testnet",
+    "graphCliName": "fuji",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "base-mainnet",
+    "graphCliName": "base",
+    "defaultFinalityConfirmations": 15
+  },
+  {
+    "subsquidName": "base-goerli",
+    "graphCliName": "base-testnet",
+    "defaultFinalityConfirmations": 15
+  },
+  {
+    "subsquidName": "binance",
+    "graphCliName": "bsc",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "binance-testnet",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "eth-mainnet",
+    "graphCliName": "mainnet",
+    "defaultFinalityConfirmations": 75
+  },
+  {
+    "subsquidName": "eth-goerli",
+    "graphCliName": "goerli",
+    "defaultFinalityConfirmations": 75
+  },
+  {
+    "subsquidName": "exosama",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "fantom",
+    "graphCliName": "fantom",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "fantom-testnet",
+    "graphCliName": "fantom-testnet",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "flare-mainnet",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "gnosis-mainnet",
+    "graphCliName": "gnosis"
+  },
+  {
+    "subsquidName": "moonbase",
+    "graphCliName": "mbase",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "moonbeam",
+    "graphCliName": "moonbeam",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "moonriver",
+    "graphCliName": "moonriver",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "moonsama",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "optimism-mainnet",
+    "graphCliName": "optimism",
+    "defaultFinalityConfirmations": 15
+  },
+  {
+    "subsquidName": "optimism-goerli",
+    "graphCliName": "optimism-goerli",
+    "defaultFinalityConfirmations": 15
+  },
+  {
+    "subsquidName": "polygon",
+    "graphCliName": "matic",
+    "defaultFinalityConfirmations": 400
+  },
+  {
+    "subsquidName": "polygon-mumbai",
+    "defaultFinalityConfirmations": 400
+  },
+  {
+    "subsquidName": "polygon-zkevm",
+    "graphCliName": "polygon-zkevm",
+    "defaultFinalityConfirmations": 10
+  },
+  {
+    "subsquidName": "polygon-zkevm-testnet",
+    "graphCliName": "polygon-zkevm-testnet",
+    "defaultFinalityConfirmations": 10
+  },
+  {
+    "subsquidName": "sepolia",
+    "graphCliName": "sepolia",
+    "defaultFinalityConfirmations": 75
+  },
+  {
+    "subsquidName": "shibuya-testnet",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "shiden-testnet",
+    "defaultFinalityConfirmations": 5
+  },
+  {
+    "subsquidName": "zksync-mainnet",
+    "graphCliName": "zksync-era",
+    "defaultFinalityConfirmations": 600
+  },
+  {
+    "subsquidName": "zksync-testnet",
+    "graphCliName": "zksync-era-testnet",
+    "defaultFinalityConfirmations": 600
+  }
+]
