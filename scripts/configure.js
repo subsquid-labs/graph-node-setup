@@ -6,7 +6,7 @@ import input from '@inquirer/input'
 import registry from '@subsquid/archive-registry'
 
 program
-	.option('-n, --network <graph_cli_name>', 'Network name according to Graph CLI')
+	.option('-n, --network <subsquid_name>', 'Network name according to Subsquid. See https://docs.subsquid.io/evm-indexing/supported-networks/')
 	.option('-r, --rpc <rpc_url>', 'URL of a chain node RPC endpoint')
 	.option('--finality-confirmation <num_blocks>', 'Block depth at which to consider the data final')
 program.parse()
@@ -34,6 +34,7 @@ if (userVars.network==null) {
 			new Separator('----- no support by thegraph below this line -----'),
 			...nonGraphNetworks
 		],
+		default: 'evm-mainnet',
 		pageSize: 150,
 		loop: false
 	})
