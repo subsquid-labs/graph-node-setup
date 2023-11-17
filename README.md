@@ -12,8 +12,9 @@ Basic environment includes:
  * IPFS
  * `firehose-grpc`, a Firehose implementation that uses Subsquid data
  * Graph node
+ * (If you choose Subsquid Network as a data source) A query gateway Subsquid Network node
 
-To get it, first clone the repo and install the dependencies:
+To get the environment, first clone the repo and install the dependencies:
 ```bash
 git clone https://github.com/subsquid-labs/graph-node-setup
 cd graph-node-setup
@@ -23,7 +24,9 @@ Then configure the environment with
 ```bash
 npm run configure
 ```
-You will be prompted to select the network and provide an RPC endpoint for it. Most of the data will be coming from Subsquid, so you can expect that the endpoint will not be used heavily. In fact, a public endpoint from [Ankr](https://www.ankr.com/rpc/) or [BlastAPI](https://blastapi.io/public-api) should suffice.
+You will be prompted to select the network and provide an RPC endpoint for it. Most of the data will be coming from Subsquid; RPC will only be used to sync the few thousands of blocks at the chain head. So, you can expect that the total number of requests will not be high, but request rate may briefly become high enough to send public RPC endpoints into a cooldown. Free private endpoints should perform well.
+
+![Environment configuration](/configuration.gif)
 
 Once you're done with the configuration launch the containers:
 ```bash
@@ -57,3 +60,23 @@ npm run deploy-local
 
 ```
 GraphiQL playground will be available at [http://127.0.0.1:8000/subgraphs/name/example/graphql](http://127.0.0.1:8000/subgraphs/name/example/graphql).
+
+## Disabling RPC ingestion
+
+If you would like to use `firehose-grpc` without RPC ingestion, you can configure the environment to do so by running
+```bash
+npm run configure -- --disable-rpc-ingestion
+```
+You will still have to supply an RPC URL, but it won't be used for ingestion, so a public RPC will suffice.
+
+Disabling RPC ingestion introduces a delay of several thousands of blocks between the highest block available to the subgraph and the actual block head.
+
+## Troubleshooting
+
+Do not hesitate to let us know about any issues (whether listed here or not) at the [SquidDevs Telegram chat](https://t.me/HydraDevs).
+
+* If your subgraph is not syncing and you're getting
+  ```
+  thread 'tokio-runtime-worker' panicked at 'called `Option::unwrap()` on a `None` value', src/ds_rpc.rs:556:80
+  ```
+  errors in the `graph-node-setup-firehose` container logs, that likely means that the chain RPC is not fully Ethereum-compatible and a workaround is not yet implemented in `firehose-grpc`. You can still sync your subgraph with [RPC ingestion disabled](#disabling-rpc-ingestion).
