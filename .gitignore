@@ -1,3 +1,4 @@
 docker-compose.yml
 config.toml
+query-gateway/config/gateway-config.yml
 node_modules

@@ -34,7 +34,11 @@
   {
     "subsquidName": "base-mainnet",
     "graphCliName": "base",
-    "defaultFinalityConfirmations": 15
+    "defaultFinalityConfirmations": 15,
+    "network": {
+      "dataset": "base-mainnet",
+      "base64url": "czM6Ly9iYXNlLW1haW5uZXQ"
+    }
   },
   {
     "subsquidName": "base-goerli",
@@ -44,7 +48,11 @@
   {
     "subsquidName": "binance",
     "graphCliName": "bsc",
-    "defaultFinalityConfirmations": 5
+    "defaultFinalityConfirmations": 5,
+    "network": {
+      "dataset": "bsc-mainnet",
+      "base64url": "czM6Ly9ic2MtbWFpbm5ldA"
+    }
   },
   {
     "subsquidName": "binance-testnet",
@@ -53,7 +61,11 @@
   {
     "subsquidName": "eth-mainnet",
     "graphCliName": "mainnet",
-    "defaultFinalityConfirmations": 75
+    "defaultFinalityConfirmations": 75,
+    "network": {
+      "dataset": "ethereum-mainnet",
+      "base64url": "czM6Ly9ldGhlcmV1bS1tYWlubmV0"
+    }
   },
   {
     "subsquidName": "eth-goerli",
@@ -90,7 +102,11 @@
   {
     "subsquidName": "moonbeam",
     "graphCliName": "moonbeam",
-    "defaultFinalityConfirmations": 5
+    "defaultFinalityConfirmations": 5,
+    "network": {
+      "dataset": "moonbeam-mainnet",
+      "base64url": "czM6Ly9tb29uYmVhbS1tYWlubmV0"
+    }
   },
   {
     "subsquidName": "moonriver",

@@ -6,15 +6,34 @@ import input from '@inquirer/input'
 import registry from '@subsquid/archive-registry'
 
 program
-	.option('-n, --network <subsquid_name>', 'Network name according to Subsquid. See https://docs.subsquid.io/evm-indexing/supported-networks/')
+	.option('-s, --data-source <archives|network>', 'Subsquid data source to use')
+	.option('-n, --network <subsquid_name>', 'Network name according to Subsquid. For archives see https://docs.subsquid.io/evm-indexing/supported-networks/; for network it is eth-mainnet | binance | base-mainnet | moonbeam')
 	.option('-r, --rpc <rpc_url>', 'URL of a chain node RPC endpoint')
 	.option('--finality-confirmation <num_blocks>', 'Block depth at which to consider the data final')
+	.option('--disable-rpc-ingestion', 'Do not ingest from RPC near the chain top. Introduces latency in thousands of blocks; useful for testing')
 program.parse()
 
 const userVars = {...program.opts()}
-
-const supportedNetworks = registry.archivesRegistryEVM().archives.map(a => a.network)
 const networksLore = new Map(JSON.parse(fs.readFileSync('scripts/networks.json')).map(r => [r.subsquidName, r]))
+
+if (userVars.dataSource==null) {
+	userVars.dataSource = await select({
+		message: 'Select a data source',
+		choices: [
+			{name: 'Subsquid public Archives', value: 'archives'},
+			{name: 'Subsquid Network', value: 'network'}
+		],
+		loop: false
+	})
+}
+else if (userVars.dataSource!=='archives' && userVars.dataSource!=='network') {
+	throw new Error(`Invalid data source ${userVars.dataSource}`)
+}
+
+const supportedNetworks =
+	userVars.dataSource==='archives' ?
+	registry.archivesRegistryEVM().archives.map(a => a.network) :
+	[...networksLore.values()].filter(n => n.network!=null).map(n => n.subsquidName)
 
 if (userVars.network==null) {
 	const graphNetworks = []
@@ -29,12 +48,12 @@ if (userVars.network==null) {
 	}
 	userVars.network = await select({
 		message: 'Select a network',
-		choices: [
+		choices: nonGraphNetworks.length===0 ? graphNetworks : [
 			...graphNetworks,
 			new Separator('----- no support by thegraph below this line -----'),
 			...nonGraphNetworks
 		],
-		default: 'evm-mainnet',
+		default: 'eth-mainnet',
 		pageSize: 150,
 		loop: false
 	})
@@ -54,7 +73,8 @@ else {
 
 if (userVars.rpc==null) {
 	userVars.rpc = await input({
-		message: 'RPC endpoint'
+		message: 'RPC endpoint',
+		validate: r => r.startsWith('http://') || r.startsWith('https://') || r.startsWith('ws://') || r.startsWith('wss://')
 	})
 }
 
@@ -65,19 +85,38 @@ if (userVars.finalityConfirmation==null) {
 	})
 }
 
+if (userVars.disableRpcIngestion==null) {
+	userVars.disableRpcIngestion = false
+}
+
+const archiveUrl =
+	userVars.dataSource==='archives' ?
+	registry.lookupArchive(userVars.network, {type: 'EVM', release: 'ArrowSquid'}) :
+	`http://query-gateway:8002/network/${userVars.networkLore.network.dataset}`
+
 const renderVars = {
 	network: userVars.mainAlias,
 	rpcUrl: userVars.rpc,
-	rpcFlag: `\n      "--rpc", "${userVars.rpc}",`,
-	archiveUrl: registry.lookupArchive(userVars.network, {type: 'EVM', release: 'ArrowSquid'}),
-	finalityConfirmation: userVars.finalityConfirmation
+	rpcFlag: userVars.disableRpcIngestion ? undefined : `\n      "--rpc", "${userVars.rpc}",`,
+	archiveUrl,
+	finalityConfirmation: userVars.finalityConfirmation,
+	queryGateway: userVars.dataSource==='archives' ? false : [{}],
+	dataset: userVars.networkLore.network?.dataset,
+	base64url: userVars.networkLore.network?.base64url
 }
 
 function renderFile(inPath, vars) {
 	const outPath = inPath.replaceAll('.template', '')
 	const contents = fs.readFileSync(inPath).toString()
 	fs.writeFileSync(outPath, mustache.render(contents, vars))
+	return outPath
 }
 
-renderFile('config.template.toml', renderVars)
-renderFile('docker-compose.template.yml', renderVars)
+const outFiles = []
+outFiles.push(renderFile('config.template.toml', renderVars))
+outFiles.push(renderFile('docker-compose.template.yml', renderVars))
+if (userVars.dataSource==='network') {
+	outFiles.push(renderFile('query-gateway/config/gateway-config.template.yml', renderVars))
+}
+
+console.log(`Configuration written to: ${outFiles.join(', ')}`)
