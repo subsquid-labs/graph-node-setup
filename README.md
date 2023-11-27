@@ -52,11 +52,11 @@ npx --yes npm-check-updates --upgrade
 yarn install
 
 # generate classes for the smart contract and events used in the subgraph
-npm run codegen
+yarn run codegen
 
 # create and deploy the subgraph
-npm run create-local
-npm run deploy-local
+yarn run create-local
+yarn run deploy-local
 
 ```
 GraphiQL playground will be available at [http://127.0.0.1:8000/subgraphs/name/example/graphql](http://127.0.0.1:8000/subgraphs/name/example/graphql).
