@@ -59,7 +59,7 @@ yarn run create-local
 yarn run deploy-local
 
 ```
-GraphiQL playground will be available at [http://127.0.0.1:8000/subgraphs/name/example/graphql](http://127.0.0.1:8000/subgraphs/name/example/graphql).
+If all is well, the deploy command will output an endpoint URL that you can follow to a [GraphiQL](https://www.npmjs.com/package/graphiql) playground.
 
 ## Disabling RPC ingestion
 
