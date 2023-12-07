@@ -37,7 +37,7 @@
     "defaultFinalityConfirmations": 15,
     "network": {
       "dataset": "base-mainnet",
-      "base64url": "czM6Ly9iYXNlLW1haW5uZXQ"
+      "base64url": "czM6Ly9iYXNlLTE"
     }
   },
   {
@@ -51,7 +51,7 @@
     "defaultFinalityConfirmations": 5,
     "network": {
       "dataset": "bsc-mainnet",
-      "base64url": "czM6Ly9ic2MtbWFpbm5ldA"
+      "base64url": "czM6Ly9ic2MtbWFpbm5ldC0x"
     }
   },
   {
@@ -64,7 +64,7 @@
     "defaultFinalityConfirmations": 75,
     "network": {
       "dataset": "ethereum-mainnet",
-      "base64url": "czM6Ly9ldGhlcmV1bS1tYWlubmV0"
+      "base64url": "czM6Ly9ldGhlcmV1bS1tYWlubmV0LTE"
     }
   },
   {
@@ -105,7 +105,7 @@
     "defaultFinalityConfirmations": 5,
     "network": {
       "dataset": "moonbeam-mainnet",
-      "base64url": "czM6Ly9tb29uYmVhbS1tYWlubmV0"
+      "base64url": "czM6Ly9tb29uYmVhbS1ldm0tMQ"
     }
   },
   {
