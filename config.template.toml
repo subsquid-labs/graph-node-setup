@@ -8,7 +8,9 @@ ingestor = "block_ingestor_node"
 shard = "primary"
 provider = [
     { label = "{{{network}}}", details = { type = "firehose", url = "http://firehose:13042", features = ["filters"] } },
+{{#rpcForGraphNode}}
     { label = "{{{network}}}-rpc", url = "{{{rpcUrl}}}", features = ["archive"] }
+{{/rpcForGraphNode}}
 ]
 [deployment]
 [[deployment.rule]]

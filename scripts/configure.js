@@ -20,8 +20,8 @@ if (userVars.dataSource==null) {
 	userVars.dataSource = await select({
 		message: 'Select a data source',
 		choices: [
-			{name: 'Subsquid public Archives', value: 'archives'},
-			{name: 'Subsquid Network', value: 'network'}
+			{name: 'Subsquid open private data lake', value: 'archives'},
+			{name: 'Permissionless Subsquid Network', value: 'network'}
 		],
 		loop: false
 	})
@@ -71,11 +71,17 @@ else {
 	console.log(`WARNING! You chose a network that is not supported by TheGraph. It will be available for use in subgraph.yaml under a non-standard name "${userVars.mainAlias}":\n    network: ${userVars.mainAlias}`)
 }
 
-if (userVars.rpc==null) {
+if (userVars.disableRpcIngestion==null) {
+	userVars.disableRpcIngestion = false
+}
+if (!userVars.disableRpcIngestion && userVars.rpc==null) {
 	userVars.rpc = await input({
-		message: 'RPC endpoint',
-		validate: r => r.startsWith('http://') || r.startsWith('https://') || r.startsWith('ws://') || r.startsWith('wss://')
+		message: 'RPC endpoint (for real-time updates)',
+		validate: r => r.startsWith('http://') || r.startsWith('https://') || r.startsWith('ws://') || r.startsWith('wss://') || r===''
 	})
+}
+if (userVars.rpc==='') {
+	userVars.disableRpcIngestion = true
 }
 
 if (userVars.finalityConfirmation==null) {
@@ -83,10 +89,6 @@ if (userVars.finalityConfirmation==null) {
 		message: 'Finality confirmation block depth',
 		default: userVars.networkLore.defaultFinalityConfirmations
 	})
-}
-
-if (userVars.disableRpcIngestion==null) {
-	userVars.disableRpcIngestion = false
 }
 
 const archiveUrl =
@@ -101,6 +103,7 @@ const renderVars = {
 	archiveUrl,
 	finalityConfirmation: userVars.finalityConfirmation,
 	queryGateway: userVars.dataSource==='archives' ? false : [{}],
+	rpcForGraphNode: userVars.disableRpcIngestion ? false : [{ network: userVars.mainAlias, rpcUrl: userVars.rpc }],
 	dataset: userVars.networkLore.network?.dataset,
 	base64url: userVars.networkLore.network?.base64url
 }
