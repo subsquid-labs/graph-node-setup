@@ -16,6 +16,8 @@ program.parse()
 const userVars = {...program.opts()}
 const networksLore = new Map(JSON.parse(fs.readFileSync('scripts/networks.json')).map(r => [r.subsquidName, r]))
 
+userVars.dataSource = 'archives'
+
 if (userVars.dataSource==null) {
 	userVars.dataSource = await select({
 		message: 'Select a data source',
@@ -54,7 +56,7 @@ if (userVars.network==null) {
 			...nonGraphNetworks
 		],
 		default: 'eth-mainnet',
-		pageSize: 150,
+		pageSize: 30,
 		loop: false
 	})
 }
